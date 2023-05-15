@@ -1,0 +1,18 @@
+<main role="main" class="container">
+  {% extends 'inicio.html' %} {% block principal %}
+  <div class="text-center mt-5 pt-5">
+    <h1>Fale Conosco</h1>
+    <p>Envie sua mensagem</p>
+
+    {%if sucesso %}
+    <p class="alert alert-success">Mensagem enviada com sucesso</p>
+    {% else %}
+    <form action="" method="POST">
+      {% csrf_token %} {% load bootstrap5 %} {% bootstrap_form formulario %}
+      <hr />
+      <button typpe="submit" class="btn btn-primary">Enviar Mensagem</button>
+    </form>
+    {% endif %}
+  </div>
+  {% endblock %}
+</main>
