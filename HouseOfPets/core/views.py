@@ -15,13 +15,11 @@ def contato(request):
     # {{ Server para localizar a variavel que foi passada no context}} 
     # | serve para utilizar o filtro, por exemplo {{ nome|upper }} -> transforma o nome em maiúsculo
     sucesso = False
-    print(sucesso);
 
     if request.method == 'GET':
-      print("iniciando formulario")      
       form = ContatoForm()
     else:
-      print(request)        
+      print(request)
       form = ContatoForm(request.POST)
       if form.is_valid():
         sucesso = True
@@ -32,18 +30,18 @@ def contato(request):
         # )
         # contato.save()
         form.save()
-    
+
     context = {
         'formulario': form,
         'sucesso': sucesso
     }
-    
+
     return render(request, 'contato.html', context)
 
 def reserva(request):
     sucesso = False
 
-    if request.method == 'GET':      
+    if request.method == 'GET':
       form = ReservaForm()
     else:
       form = ReservaForm(request.POST)
@@ -59,14 +57,12 @@ def reserva(request):
         form.save()
         sucesso = True
 
-    
     context = {
         'formulario': form,
         'sucesso': sucesso
     }
-    
-    return render(request, 'reserva.html', context)
 
+    return render(request, 'reserva.html', context)
 
 def sobre(request):
     return render(request, 'about.html')
