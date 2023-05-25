@@ -32,7 +32,7 @@ def contato(request):
         form.save()
 
     context = {
-        'form': form,
+        'formulario': form,
         'sucesso': sucesso
     }
 
@@ -58,7 +58,7 @@ def reserva(request):
         sucesso = True
 
     context = {
-        'form': form,
+        'formulario': form,
         'sucesso': sucesso
     }
 
