@@ -5,7 +5,7 @@
   <p class="alert alert-success">Reserva efeutada com sucesso</p>
   {% else %}
   <form action="" method="POST">
-    {% csrf_token %} {% load bootstrap5 %} {% bootstrap_form form %}
+    {% csrf_token %} {% load bootstrap5 %} {% bootstrap_form formulario %}
     <hr />
     <button typpe="submit" class="btn btn-primary">Efetuar Reserva</button>
   </form>
