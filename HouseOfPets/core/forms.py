@@ -17,7 +17,7 @@ class ReservaForm(forms.ModelForm):
             'observacao': 'Observações'
         }
         widgets = {
-            'data': forms.DateInput(attrs={'type': 'date'}),
+            'data': forms.DateInput(attrs={'type': 'date', 'format': '%d/%m/%Y'}),
             'horario': forms.DateInput(attrs={'type': 'time'}),
         }
 # class ReservaForm(forms.Form):
