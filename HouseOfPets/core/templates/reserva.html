@@ -1,16 +1,14 @@
-<main>
-  {% extends 'inicio.html' %} {% block principal %}
-  <div class="text-center mt-5 pt-5">
-    <h1>Faça a reserva para dar banho no seu pet</h1>
-    {%if sucesso %}
-    <p class="alert alert-success">Reserva efeutada com sucesso</p>
-    {% else %}
-    <form action="" method="POST">
-      {% csrf_token %} {% load bootstrap5 %} {% bootstrap_form form %}
-      <hr />
-      <button typpe="submit" class="btn btn-primary">Efetuar Reserva</button>
-    </form>
-    {% endif %}
-  </div>
-  {% endblock %}
-</main>
+{% extends 'inicio.html' %} {% block principal %}
+<div class="text-center mt-5 pt-5">
+  <h1>Faça a reserva para dar banho no seu pet</h1>
+  {%if sucesso %}
+  <p class="alert alert-success">Reserva efeutada com sucesso</p>
+  {% else %}
+  <form action="" method="POST">
+    {% csrf_token %} {% load bootstrap5 %} {% bootstrap_form form %}
+    <hr />
+    <button typpe="submit" class="btn btn-primary">Efetuar Reserva</button>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}

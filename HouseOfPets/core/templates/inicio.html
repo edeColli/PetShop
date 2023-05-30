@@ -34,8 +34,15 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../">Home</a></li>
           <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../about/">Sobre</a></li>
+          {% if user.is_authenticated %}
+          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../dashboard/">Dashboard</a></li>
+          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../sair/">Sair</a></li>
+          {% else %}
           <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../contato/">Contatos</a></li>
+          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../signup/">Cadastrar</a></li>
           <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../reserva/">Reserva</a></li>
+          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../signin/">Logar</a></li>
+          {% endif%}
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Pesquisa" aria-label="Search" />
