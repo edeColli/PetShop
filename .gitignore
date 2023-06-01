@@ -30,6 +30,7 @@
 *.rsm
 *.tds
 *.sqlite3
+*.exe
 
 
 *.cfg
@@ -38,7 +39,8 @@
 
 
 # Python history and backups
-__pycache__
+__pycache__/
+venv/
 
 
 # Castalia statistics file (since XE7 Castalia is distributed with Delphi)
