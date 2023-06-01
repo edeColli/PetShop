@@ -1,9 +1,11 @@
+from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
 
 from core.forms import ContatoForm
 from core.forms import ReservaForm
@@ -38,6 +40,8 @@ def contato(request):
         form.save()
 
     context = {
+        'responsavel': 'John Doe',
+        'telefone': '555-5555',
         'formulario': form,
         'sucesso': sucesso
     }
@@ -124,5 +128,48 @@ def sair(request):
   return redirect('../')
 
 @login_required
-def dashboard(request):
-  return render(request, 'dashboard.html')
+def dashboard(request):  
+  reservas = Reserva.objects.filter(isFinalizado=False)
+  return render(request, 'dashboard.html', {'reservas': reservas})
+
+@login_required
+def reserva_detalhe(request, reserva_id):
+  if request.method == 'GET':
+    reservas = get_object_or_404(Reserva, pk=reserva_id)
+    form = ReservaForm(instance=reservas)
+    return render(request, 'reserva_detalhe.html', {'reservas': reservas, 'form': form})
+  else:
+    try:
+      reservas = get_object_or_404(Reserva, pk=reserva_id)
+      form = ReservaForm(instance=reservas)
+      form.save
+      return render(request, 'dashboard.html')
+    except ValueError:
+      return render(request, 'reserva_detalhe.html', {
+        'reserva': reservas,
+        'form': form,
+        'error': 'Erro ao atualizar a reserva!'
+      })
+    
+@login_required
+def atualizar_reserva(request, reserva_id):
+  reserva = get_object_or_404(Reserva, pk=reserva_id)  
+  if request.method == 'POST':
+    reserva.save()
+    return redirect(reverse('../dashboard'))
+  
+
+@login_required
+def finalizar_reserva(request, reserva_id):  
+  reserva = get_object_or_404(Reserva, pk=reserva_id)
+  if request.method == 'POST':
+    reserva.isFinalizado = True
+    reserva.save()
+    return redirect(reverse('../dashboard'))
+
+@login_required
+def excluir_reserva(request, reserva_id):
+  reserva = get_object_or_404(Reserva, pk=reserva_id)
+  if request.method == 'POST':
+    reserva.delete()
+    return redirect('../dashboard')    
