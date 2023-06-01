@@ -9,9 +9,16 @@ class ContatoForm(forms.ModelForm):
 
 class ReservaForm(forms.ModelForm):
     class Meta:
+        OPCOES = [
+            ('-', 'Selecione um opção'),
+            ('cat', 'GATO'), 
+            ('dog', 'CACHORRO'),
+            ('bird', 'AVE')
+        ]
         model = Reserva
-        fields = ['nome', 'telefone', 'data', 'horario', 'observacao']
+        fields = ['nome', 'telefone', 'data', 'horario', 'categoria', 'observacao']
         labels = {
+            'nome': 'Nome do Pet',
             'data': 'Data da reserva',
             'horario': 'Hora da reserva',
             'observacao': 'Observações'
@@ -19,6 +26,7 @@ class ReservaForm(forms.ModelForm):
         widgets = {
             'data': forms.DateInput(attrs={'type': 'date', 'format': '%d/%m/%Y'}),
             'horario': forms.DateInput(attrs={'type': 'time'}),
+            'categoria': forms.Select(choices=OPCOES)
         }
 # class ReservaForm(forms.Form):
     # nome = forms.CharField(label='Nome', max_length=100)

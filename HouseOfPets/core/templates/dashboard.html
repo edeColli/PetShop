@@ -2,9 +2,22 @@
 
 <main class="container mt-5">
   <div class="row">
-    <div class="col-md-5 offset-md-3">
-      <form action="" method="GET" class="card card-body" id="form" novalidate></form>
-      <h1>Reservas efetuadas</h1>
+    <div class="col-md-8 offset-md3">
+      <br />
+      <h1 class="text-center">Reservas efetuadas</h1>
+      <ul class="list-group">
+        {% for reserva in reservas %}
+        <a class="list-group-item" href="{% url 'reserva_detalhe' reserva.id%}">
+          <header class="d-flex justify-content-between">
+            <p class="fw-bold">{{reserva.nome}}</p>
+            <p class="fw-bold">{{reserva.categoria}}</p>
+            <p class="fw-bold">{{reserva.observacao}}</p>
+            <p class="fw-bold">{{reserva.data}}</p>
+            <p class="fw-bold">{{reserva.horario}}</p>
+          </header>
+        </a>
+        {%endfor%}
+      </ul>
     </div>
   </div>
 </main>

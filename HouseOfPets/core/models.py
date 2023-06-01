@@ -11,5 +11,7 @@ class Reserva(models.Model):
     telefone = models.CharField(max_length=20)
     data = models.DateTimeField()
     horario = models.TimeField()
+    categoria = models.CharField(max_length=30, default='', null=False)
     observacao = models.TextField(blank=True)
+    isFinalizado = models.BooleanField(default=False)
 
