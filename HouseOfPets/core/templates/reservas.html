@@ -9,10 +9,10 @@
         {% for reserva in reservas %}
         <a class="list-group-item" href="{% url 'reserva_detalhe' reserva.id%}">
           <header class="d-flex justify-content-between">
-            <p class="fw-bold">{{reserva.nome}}</p>
             <p class="fw-bold">{{reserva.categoria}}</p>
-            <p class="fw-bold">{{reserva.observacao}}</p>
-            <p class="fw-bold">{{reserva.data}}</p>
+            <p class="fw-bold">{{reserva.nome}}</p>
+            <!-- <p class="fw-bold">{{reserva.observacao}}</p> -->
+            <p class="fw-bold">{{reserva.data|date:'d/m/Y'}}</p>
             <p class="fw-bold">{{reserva.horario}}</p>
           </header>
         </a>
