@@ -25,7 +25,7 @@ urlpatterns = [
     path("about/", views.sobre),
     path("signup/", views.signup),
     path("signin/", views.signin),
-    path("dashboard/", views.dashboard),
+    path("reservas/", views.reservas),
     path('reserva/<int:reserva_id>/', views.reserva_detalhe, name='reserva_detalhe'),    
     path('finalizar_reserva/<int:reserva_id>', views.finalizar_reserva, name='finalizar_reserva'),
     path("excluir_reserva/<int:reserva_id>", views.excluir_reserva, name='excluir_reserva'),

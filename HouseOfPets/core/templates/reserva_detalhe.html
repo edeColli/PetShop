@@ -6,17 +6,17 @@
       <h1 class="text-center">Detalhes da reserva</h1>
 
       {{error}}
-      <form action="#" method="POST" , class="card card-body">
+      <form action="" method="POST" class="card card-body">
         {%csrf_token%} {{form}}
         <button typpe="submit" class="btn btn-primary mt-2">Atualizar</button>
       </form>
       <div class="mt-5 d-flex">
-        <form action="" method="POST">
+        <form action="{% url 'finalizar_reserva' reserva.id %}" method="POST">
           {% csrf_token%}
-          <button typpe="submit" class="btn btn-sucess mt-2">Finalizar</button>
+          <button typpe="submit" class="btn btn-success mt-2">Finalizar</button>
         </form>
 
-        <form action="" method="POST">
+        <form action="{% url 'excluir_reserva' reserva.id %}" method="POST">
           {% csrf_token%}
           <button typpe="submit" class="btn btn-danger mt-2">Excluir</button>
         </form>

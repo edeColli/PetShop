@@ -12,6 +12,7 @@ from core.forms import ReservaForm
 from .models import Reserva
 from .models import Contato
 
+RESERVAS = '/reservas/'
 # Create your views here.
 
 def inicio(request):
@@ -64,7 +65,9 @@ def reserva(request):
         #   observacao=form.cleaned_data['observacoes']
         # )
         # schedule.save()
-        form.save()
+        reserva = form.save(commit=False)
+        reserva.user = request.user 
+        reserva.save()
         sucesso = True
 
     context = {
@@ -120,43 +123,50 @@ def signin(request):
       })
     else:
       login(request, user)
-      return redirect('../dashboard')
+      return redirect(RESERVAS)
 
 @login_required
 def sair(request):
   logout(request)
-  return redirect('../')
+  return redirect('/')
 
 @login_required
-def dashboard(request):  
-  reservas = Reserva.objects.filter(isFinalizado=False)
-  return render(request, 'dashboard.html', {'reservas': reservas})
+def reservas(request):  
+  if request.user.is_superuser:
+    reservas = Reserva.objects.filter(isFinalizado=False).order_by('data','horario')
+  else:
+    reservas = Reserva.objects.filter(user=request.user, isFinalizado=False).order_by('data','horario')
+
+  return render(request, 'reservas.html', {'reservas': reservas})
 
 @login_required
 def reserva_detalhe(request, reserva_id):
   if request.method == 'GET':
-    reservas = get_object_or_404(Reserva, pk=reserva_id)
-    form = ReservaForm(instance=reservas)
-    return render(request, 'reserva_detalhe.html', {'reservas': reservas, 'form': form})
+    reserva = get_object_or_404(Reserva, pk=reserva_id)
+    form = ReservaForm(instance=reserva)
+    return render(request, 'reserva_detalhe.html', {'reserva': reserva, 'form': form})
   else:
     try:
-      reservas = get_object_or_404(Reserva, pk=reserva_id)
-      form = ReservaForm(instance=reservas)
+      reserva = get_object_or_404(Reserva, pk=reserva_id)
+      form = ReservaForm(instance=reserva)
       form.save
-      return render(request, 'dashboard.html')
+      return render(request, 'reservas.html')
     except ValueError:
       return render(request, 'reserva_detalhe.html', {
-        'reserva': reservas,
+        'reserva': reserva,
         'form': form,
         'error': 'Erro ao atualizar a reserva!'
       })
     
 @login_required
 def atualizar_reserva(request, reserva_id):
+  print('atualizar')
   reserva = get_object_or_404(Reserva, pk=reserva_id)  
   if request.method == 'POST':
+    print('salvando....')
     reserva.save()
-    return redirect(reverse('../dashboard'))
+    print('salvou....')
+    return redirect(RESERVAS)
   
 
 @login_required
@@ -165,11 +175,11 @@ def finalizar_reserva(request, reserva_id):
   if request.method == 'POST':
     reserva.isFinalizado = True
     reserva.save()
-    return redirect(reverse('../dashboard'))
+    return redirect(RESERVAS)
 
 @login_required
 def excluir_reserva(request, reserva_id):
   reserva = get_object_or_404(Reserva, pk=reserva_id)
   if request.method == 'POST':
     reserva.delete()
-    return redirect('../dashboard')    
+    return redirect(RESERVAS)
