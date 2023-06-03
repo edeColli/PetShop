@@ -10,9 +10,13 @@ class ContatoForm(forms.ModelForm):
 
 class ReservaForm(forms.ModelForm):
     data = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'text', 'class': 'datepicker', 'style': 'width: 15%', 'placeholder': 'dd/mm/yyyy'}),
+        widget=forms.DateInput(
+            attrs={'type': 'date', 'class': 'form-control', 'style': 'width: 15%'},
+            format='%d/%m/%Y'
+        ),
         input_formats=['%d/%m/%Y']
     )
+
     class Meta:
         model = Reserva
         fields = ['nome', 'telefone', 'data', 'horario', 'categoria', 'observacao']
@@ -23,10 +27,17 @@ class ReservaForm(forms.ModelForm):
             'observacao': 'Observações'
         }
         widgets = {
-            #'data': forms.DateInput(attrs={'type': 'date', 'class': 'datepicker', 'style': 'width: 15%'}),
-            'horario': forms.DateInput(attrs={'type': 'time', 'style': 'width: 15%'}),
-            'categoria': forms.Select(attrs={'style': 'display: block; width: 100%; required: true'})
+            'horario': forms.Select(attrs={'class': 'form-control', 'style': 'width: 15%'}),
+            'categoria': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 15%; required: true'})
         }
+
+    # def __init__(self, *args, **kwargs):
+    #     super(ReservaForm, self).__init__(*args, **kwargs)
+    #     for field in self.fields.items():
+    #         # Adiciona a classe CSS para todos os campos
+    #         field.widget.attrs['class'] = 'form-control' 
+    #         # Remove o sufixo padrão ':' dos rótulos
+    #         field.label_suffix = ''
 
     def clean(self):
         cleaned_data = super().clean()
