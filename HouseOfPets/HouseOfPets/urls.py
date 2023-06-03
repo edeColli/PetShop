@@ -26,16 +26,16 @@ from core import views
 
 
 urlpatterns = [    
-    path("", views.inicio),
-    path("about/", views.sobre),
+    path("", views.inicio, name='unicio'),
+    path("about/", views.sobre, name='sobre'),
     path("sair/", views.sair),
     path("admin/", admin.site.urls),
-    path("contato/", contato),
-    path("reserva/", reserva),    
-    path("signup/", signup),
-    path("signin/", signin),
-    path("reservas/", reservas),
-    path('reserva/<int:reserva_id>/', reserva_detalhe, name='reserva_detalhe'),    
+    path("contato/", contato, name='contato'),
+    path("reserva/", reserva, name='reserva'),
+    path("signup/", signup, name='signup'),
+    path("signin/", signin, name='signin'),
+    path("reservas/", reservas, name='reservas'),
+    path('reserva/<int:reserva_id>/', reserva_detalhe, name='reserva_detalhe'),
     path('finalizar_reserva/<int:reserva_id>', finalizar_reserva, name='finalizar_reserva'),
     path("excluir_reserva/<int:reserva_id>", excluir_reserva, name='excluir_reserva'),
 ]

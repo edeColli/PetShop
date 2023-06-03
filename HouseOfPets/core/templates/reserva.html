@@ -1,14 +1,49 @@
 {% extends 'inicio.html' %} {% block principal %}
-<div class="text-center mt-5 pt-5">
-  <h1>Faça a reserva para dar banho no seu pet</h1>
-  {%if sucesso %}
-  <p class="alert alert-success">Reserva efeutada com sucesso</p>
-  {% else %}
-  <form action="" method="POST">
-    {% csrf_token %} {% load bootstrap5 %} {% bootstrap_form formulario %}
-    <hr />
-    <button typpe="submit" class="btn btn-primary">Efetuar Reserva</button>
-  </form>
-  {% endif %}
-</div>
-{% endblock %}
+
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr); /* Define 10 colunas */
+      gap: 10px; /* Espaçamento entre as células */
+    }
+
+    .cell {
+      width: 100px;
+      height: 50px;
+      border: 1px solid #ccc;
+    }
+
+    .booked {
+      background-color: red;
+    }
+
+    .available {
+      background-color: green;
+    }
+
+  </style>
+  <div class="text-center mt-5 pt-5">
+    <h1>Faça a reserva para dar banho no seu pet</h1>
+    <h3>Horários da Agenda do dia</h3>
+  </div>
+  <div class="mt-5 pt-5 align-items-center">
+    <div class="grid">
+      {% for horario in horas_disponiveis %}
+        <div class="cell {% if horario in horarios_ocupados %}booked{% else %}available{% endif %}">{{ horario }}</div>
+      {% endfor %}
+    </div>
+    <br><br>
+    {%if sucesso %}
+    <p class="alert alert-success">Reserva efeutada com sucesso</p>
+    {% else %}
+    <form action="" method="POST">
+      {% csrf_token %} 
+      {% load bootstrap5 %} 
+      {% bootstrap_form formulario %}
+      <br>
+      <button typpe="submit" class="btn btn-primary">Efetuar Reserva</button>
+    </form>
+    {% endif %}
+  </div>
+  {% endblock %}
+</head>

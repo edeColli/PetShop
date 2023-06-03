@@ -1,4 +1,9 @@
 {% extends 'inicio.html' %} {% load bootstrap5 %} {% block principal %}
+<style>
+  .data-field {
+    width: 15%;
+  }
+</style>
 
 <main class="container mt-5">
   <div class="row">
@@ -11,7 +16,13 @@
         <div class="alert alert-{{ message.tags }}">{{ message }}</div>
         {% endfor %}
       </div>
+      {% endif %} {% if usuario_admin %}
+      <form action="{% url 'reservas' %}" method="GET" class="d-flex mb-3">
+        <input type="date" name="dateFilter" class="form-control" style="width: 25%" />
+        <button type="submit" class="btn btn-primary ml-2">Filtrar</button>
+      </form>
       {% endif %}
+
       <ul class="list-group">
         {% for reserva in reservas %}
         <a class="list-group-item" href="{% url 'reserva_detalhe' reserva.id%}">
