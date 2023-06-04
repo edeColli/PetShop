@@ -41,9 +41,6 @@
     {%if sucesso %}
       <p class="alert alert-success">Reserva efeutada com sucesso</p>
       <script>
-        // Atualizar lista de horários ocupados
-        var horariosOcupados = {{ horarios_ocupados|safe }};
-
         // Percorrer os elementos da lista de horários ocupados e pintar o horário reservado
         var cells = document.getElementsByClassName('cell');
         for (var i = 0; i < cells.length; i++) {

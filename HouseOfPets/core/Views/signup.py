@@ -12,20 +12,27 @@ def signup(request):
       'form': UserCreationForm
     })
   else:
+    print(request.POST)
     if request.POST['password1'] == request.POST['password2']:
-        try:
-          print('objeto')
-          user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
-          user.save()
-          login(request, user)
-          return redirect('../signin')
-        except:
-          return render(request, SIGNUP, {
-            'form': UserCreationForm,
-            'error': 'E-mail já cadastrado'
-          })
+      try:
+        print('vai salvar')
+        user = User.objects.create_user(
+          username=request.POST['username'], 
+          password=request.POST['password1'])
+        
+        user.first_name=request.POST['first_name']
+        user.last_name=request.POST['last_name']
+        user.email=request.POST['email']
+        user.save()
+        login(request, user)
+        return redirect('/reserva/')
+      except:
+        return render(request, SIGNUP, {
+          'form': UserCreationForm,
+          'error': 'E-mail já cadastrado'
+        })
     return render(request, SIGNUP, {
       'form': UserCreationForm,
-      'error': 'Senhas são diferentes'
+      'error': 'As senhas informadas são diferentes'
     })
 
