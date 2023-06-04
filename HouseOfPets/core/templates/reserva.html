@@ -1,14 +1,69 @@
 {% extends 'inicio.html' %} {% block principal %}
-<div class="text-center mt-5 pt-5">
-  <h1>Faça a reserva para dar banho no seu pet</h1>
-  {%if sucesso %}
-  <p class="alert alert-success">Reserva efeutada com sucesso</p>
-  {% else %}
-  <form action="" method="POST">
-    {% csrf_token %} {% load bootstrap5 %} {% bootstrap_form formulario %}
-    <hr />
-    <button typpe="submit" class="btn btn-primary">Efetuar Reserva</button>
-  </form>
-  {% endif %}
-</div>
-{% endblock %}
+
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr); /* Define 10 colunas */
+      gap: 10px; /* Espaçamento entre as células */
+    }
+
+    .cell {
+      width: 100px;
+      height: 50px;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center; /* Centraliza verticalmente */
+      justify-content: center; /* Centraliza horizontalmente */
+    }
+
+    .booked {
+      background-color: #FF6347;
+    }
+
+    .available {
+      background-color: #3CB371;
+    }
+
+  </style>
+  <div class="text-center mt-5 pt-5">
+    <h1>Faça a reserva para dar banho no seu pet</h1>
+    <h3>Horários da Agenda do dia</h3>
+  </div>
+  <div class="mt-5 pt-5 align-items-center">
+    <div class="grid">
+      {% for horario in horas_disponiveis %}
+        <div class="cell {% if horario in horarios_ocupados %}booked{% else %}available{% endif %}">
+          <div class="text-center">{{ horario }}</div>
+        </div>
+      {% endfor %}
+    </div>
+    <br><br>
+    {%if sucesso %}
+      <p class="alert alert-success">Reserva efeutada com sucesso</p>
+      <script>
+        // Atualizar lista de horários ocupados
+        var horariosOcupados = {{ horarios_ocupados|safe }};
+
+        // Percorrer os elementos da lista de horários ocupados e pintar o horário reservado
+        var cells = document.getElementsByClassName('cell');
+        for (var i = 0; i < cells.length; i++) {
+            var horario = cells[i].innerText;
+            if (horariosOcupados.includes(horario)) {
+                cells[i].classList.add('booked');
+            } else {
+                cells[i].classList.remove('booked');
+            }
+        }
+      </script>
+    {% else %}
+    <form action="" method="POST">
+      {% csrf_token %} 
+      {% load bootstrap5 %} 
+      {% bootstrap_form formulario %}
+      <br>
+      <button typpe="submit" class="btn btn-primary">Efetuar Reserva</button>
+    </form>
+    {% endif %}
+  </div>
+  {% endblock %}
+</head>

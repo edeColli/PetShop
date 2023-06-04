@@ -17,7 +17,6 @@
 
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">...</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -33,21 +32,21 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../">Home</a></li>
-          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../about/">Sobre</a></li>
+          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/about/">Sobre</a></li>
           {% if user.is_authenticated %}
-          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../dashboard/">Dashboard</a></li>
-          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../sair/">Sair</a></li>
+          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/reserva/">Reserva</a></li>
+          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/reservas/">Agendamentos</a></li>
+          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/sair/">Sair</a></li>
           {% else %}
-          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../contato/">Contatos</a></li>
-          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../signup/">Cadastrar</a></li>
-          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../reserva/">Reserva</a></li>
-          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="../signin/">Logar</a></li>
+          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/contato/">Contatos</a></li>
+          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/signup/">Cadastrar</a></li>
+          <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/signin/">Logar</a></li>
           {% endif%}
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <!-- <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Pesquisa" aria-label="Search" />
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-        </form>
+        </form> -->
       </div>
     </nav>
 
@@ -62,6 +61,8 @@
           personalizados. Uma vez que você experimenta, seu pet ficará tão bonito e saudável que você não conseguirá
           mais viver sem nossos serviços - garantimos isso!
         </p>
+
+        <img src="../../Imgs/nome-pet-shop.png" class="img-fluid" alt="" />
       </div>
       {% endblock %}
     </main>
