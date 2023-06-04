@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 from django.shortcuts import render
 from ..models import Reserva
 from core.forms import ReservaForm
