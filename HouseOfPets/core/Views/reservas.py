@@ -7,7 +7,7 @@ from ..models import Reserva
 def reservas(request):
   usuario_admin = request.user.is_superuser
 
-  # Obter o valor do parâmetro filtro_data da solicitação GET
+  # Obter o valor do parâmetro dateFilter da solicitação GET
   dateFilter = request.GET.get('dateFilter')
 
   if usuario_admin:
@@ -16,7 +16,7 @@ def reservas(request):
     reservas = Reserva.objects.filter(user=request.user, isFinalizado=False).order_by('data','horario')
 
   if dateFilter:
-      #Converter o filtro_data em objeto datetime
+      #Converter o dateFilter em objeto datetime
       filteredDate = datetime.strptime(dateFilter, '%Y-%m-%d').date()
       #Filtrar as reservas pela data
       reservas = reservas.filter(data=filteredDate)
