@@ -3,6 +3,12 @@
   .data-field {
     width: 15%;
   }
+
+  .finalizado {
+    text-decoration: line-through;
+    background-color: lightgray;
+    /* Outros estilos para destacar reservas finalizadas */
+  }
 </style>
 
 <main class="container mt-5">
@@ -17,20 +23,31 @@
         {% endfor %}
       </div>
       {% endif %} {% if usuario_admin %}
-      <form action="{% url 'reservas' %}" method="GET" class="d-flex mb-3">
-        <input type="date" name="dateFilter" class="form-control" style="width: 25%" />
+      <form action="{% url 'reservas' %}" method="GET" class="d-flex mb-3 flex-column align-items-start mb-3">
+        <div class="form-group">
+          <label for="dateFilter">Data da reserva:</label>
+          <input type="date" name="dateFilter" class="form-control" style="width: 100%" />
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" name="finalizadas" id="finalizadas" class="form-check-input" />
+          <label for="finalizadas" class="form-check-label">Considerar reservas finalizadas</label>
+        </div>
         <button type="submit" class="btn btn-primary ml-2">Filtrar</button>
       </form>
       {% endif %}
 
       <ul class="list-group">
         {% for reserva in reservas %}
-        <a class="list-group-item" href="{% url 'reserva_detalhe' reserva.id%}">
+        <a
+          class="list-group-item {% if reserva.isFinalizado %}finalizado{% endif %}"
+          href="{% url 'reserva_detalhe' reserva.id%}"
+        >
           <header class="d-flex justify-content-between">
             <p class="fw-bold">{{reserva.categoria}}</p>
             <p class="fw-bold">{{reserva.nome}}</p>
             <p class="fw-bold">{{reserva.data|date:'d/m/Y'}}</p>
             <p class="fw-bold">{{reserva.horario}}</p>
+            <p class="fw-bold">{{reserva.isFinalizado}}</p>
           </header>
         </a>
         {%endfor%}

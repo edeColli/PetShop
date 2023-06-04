@@ -74,6 +74,14 @@ class ReservaForm(forms.ModelForm):
         
         return data
     
+    def clean_telefone(self):
+        telefone = self.cleaned_data.get('telefone')
+        if not telefone.isdigit():
+            self.add_error('telefone', 'Este campo só aceita números.')
+
+        if len(telefone) < 9:
+            self.add_error('telefone', 'O telefone informado é inválido.')
+
     def clean_horario(self):
         horario = self.cleaned_data.get('horario')
         reserva_id = self.instance.id
