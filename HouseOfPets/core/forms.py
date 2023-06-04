@@ -9,13 +9,27 @@ class ContatoForm(forms.ModelForm):
         fields = ['nome', 'email', 'mensagem']
 
 class ReservaForm(forms.ModelForm):
-    data = forms.DateField(
-        widget=forms.DateInput(
-            attrs={'type': 'date', 'class': 'form-control', 'style': 'width: 15%'},
-            format='%d/%m/%Y'
-        ),
-        input_formats=['%d/%m/%Y']
-    )
+    # data = forms.DateField(
+    #     widget=forms.DateInput(
+    #         attrs={'type': 'date', 
+    #             'class': 'form-control', 
+    #             'style': 'width: 20%',
+    #             'format':'dd/mm/yyyy'},
+    #         format='%d/%m/%Y'
+    #     ),
+    #     input_formats=['%d/%m/%Y']
+    # )
+
+    # data = forms.DateField(
+    #     widget=forms.DateInput(
+    #         attrs={'type': 'date', 
+    #                'class': 'form-control', 
+    #                'style': 'width: 20%;',
+    #                'format': 'dd/mm/yyyy'},
+    #         format='%d/%m/%Y'
+    #     ),
+    #     input_formats=['%d/%m/%Y']
+    # )
 
     class Meta:
         model = Reserva
@@ -27,8 +41,9 @@ class ReservaForm(forms.ModelForm):
             'observacao': 'Observações'
         }
         widgets = {
-            'horario': forms.Select(attrs={'class': 'form-control', 'style': 'width: 15%'}),
-            'categoria': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 15%; required: true'})
+            'data': forms.DateInput(attrs={'type': 'form-control', 'class': 'datepicker', 'placeholder':'dd/mm/yyyy','style': 'width: 15%'}),
+            'horario': forms.Select(attrs={'class': 'form-control', 'style': 'width: 20%'}),
+            'categoria': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 20%; required: true'})
         }
 
     # def __init__(self, *args, **kwargs):
@@ -63,8 +78,9 @@ class ReservaForm(forms.ModelForm):
         horario = self.cleaned_data.get('horario')
         reserva_id = self.instance.id
 
-        # Verificar se já existe uma reserva com o mesmo horário
-        reservas_existentes = Reserva.objects.filter(horario=horario).exclude(id=reserva_id)
+        # Verificar se já existe uma reserva com o mesmo horário, desde que não seja ela mesma ou um registro novo
+        reservas_existentes = Reserva.objects.filter(horario=horario).exclude(id=reserva_id).exclude(id__isnull=False)
+
         if reservas_existentes.exists():
             #raise forms.ValidationError('Este horário já está reservado.')
             self.add_error('horario', 'Este horário já está reservado.')

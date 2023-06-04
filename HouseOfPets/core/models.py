@@ -28,7 +28,7 @@ class Reserva(models.Model):
 
     nome = models.CharField(max_length=100)
     telefone = models.CharField(max_length=20)
-    data = models.DateTimeField()
+    data = models.DateField()
     #horario = models.TimeField()
     horario = models.CharField(max_length=5, verbose_name="Horário", choices=horario_list)
     categoria = models.CharField(max_length=30, verbose_name="Categoria", choices=categoria_list)
