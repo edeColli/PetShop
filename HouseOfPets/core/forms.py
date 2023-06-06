@@ -8,28 +8,8 @@ class ContatoForm(forms.ModelForm):
         model = Contato
         fields = ['nome', 'email', 'mensagem']
 
-class ReservaForm(forms.ModelForm):
-    # data = forms.DateField(
-    #     widget=forms.DateInput(
-    #         attrs={'type': 'date', 
-    #             'class': 'form-control', 
-    #             'style': 'width: 20%',
-    #             'format':'dd/mm/yyyy'},
-    #         format='%d/%m/%Y'
-    #     ),
-    #     input_formats=['%d/%m/%Y']
-    # )
 
-    # data = forms.DateField(
-    #     widget=forms.DateInput(
-    #         attrs={'type': 'date', 
-    #                'class': 'form-control', 
-    #                'style': 'width: 20%;',
-    #                'format': 'dd/mm/yyyy'},
-    #         format='%d/%m/%Y'
-    #     ),
-    #     input_formats=['%d/%m/%Y']
-    # )
+class ReservaForm(forms.ModelForm):
 
     class Meta:
         model = Reserva
@@ -41,7 +21,7 @@ class ReservaForm(forms.ModelForm):
             'observacao': 'Observações'
         }
         widgets = {
-            'data': forms.DateInput(attrs={'type': 'form-control', 'class': 'datepicker', 'placeholder':'dd/mm/yyyy','style': 'width: 15%'}),
+            'data': forms.DateInput(attrs={'type': 'date', 'class': 'datepicker', 'placeholder':'dd/mm/yyyy','style': 'width: 15%'}),
             'horario': forms.Select(attrs={'class': 'form-control', 'style': 'width: 20%'}),
             'categoria': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 20%; required: true'})
         }
