@@ -13,26 +13,33 @@ def signup(request):
     })
   else:
     print(request.POST)
-    if request.POST['password1'] == request.POST['password2']:
-      try:
-        print('vai salvar')
-        user = User.objects.create_user(
-          username=request.POST['username'], 
-          password=request.POST['password1'])
-        
-        user.first_name=request.POST['first_name']
-        user.last_name=request.POST['last_name']
-        user.email=request.POST['email']
-        user.save()
-        login(request, user)
-        return redirect('/reserva/')
-      except:
+    if 'password1' in request.POST and 'password2' in request.POST:
+      pass1 = request.POST['password1']
+      pass2 = request.POST['password2']
+      if pass1.strip() and pass2.strip() and pass1 == pass2:
+        try:
+          user = User.objects.create_user(
+            username=request.POST['username'], 
+            password=request.POST['password1'])
+          
+          user.first_name=request.POST['first_name']
+          user.last_name=request.POST['last_name']
+          user.email=request.POST['email']
+          user.save()
+          login(request, user)
+          return redirect('/reserva/')
+        except:
+          return render(request, SIGNUP, {
+            'form': UserCreationForm,
+            'error': 'usuário e/ou e-mail já cadastrado'
+          })
+      else:
         return render(request, SIGNUP, {
-          'form': UserCreationForm,
-          'error': 'E-mail já cadastrado'
+          'form': UserCreationForm(),
+          'error': 'As senhas informadas são inválidas'
         })
     return render(request, SIGNUP, {
       'form': UserCreationForm,
-      'error': 'As senhas informadas são diferentes'
+      'error': 'As senhas não foram informadas'
     })
 

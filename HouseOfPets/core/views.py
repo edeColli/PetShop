@@ -12,5 +12,5 @@ def sobre(request):
 
 @login_required
 def sair(request):
-  logout(request)
-  return redirect('/')
+    logout(request)
+    return redirect('/')
