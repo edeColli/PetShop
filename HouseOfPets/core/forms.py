@@ -26,15 +26,6 @@ class ReservaForm(forms.ModelForm):
             'categoria': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 20%; required: true'}),
             'tamanho': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 20%; required: true'})
         }
-
-    # def __init__(self, *args, **kwargs):
-    #     super(ReservaForm, self).__init__(*args, **kwargs)
-    #     for field in self.fields.items():
-    #         # Adiciona a classe CSS para todos os campos
-    #         field.widget.attrs['class'] = 'form-control' 
-    #         # Remove o sufixo padrão ':' dos rótulos
-    #         field.label_suffix = ''
-
     def clean(self):
         cleaned_data = super().clean()
         # suas validações e manipulações aqui
@@ -75,10 +66,3 @@ class ReservaForm(forms.ModelForm):
             self.add_error('horario', 'Este horário já está reservado.')
 
         return horario
-    
-# class ReservaForm(forms.Form):
-    # nome = forms.CharField(label='Nome', max_length=100)
-    # telefone = forms.CharField(label='Telefone', max_length=100)
-    # data = forms.DateField(widget=forms.widgets.DateInput(attrs={'type':'date'}), label="Data da reserva")
-    # horario = forms.TimeField(widget=forms.widgets.TimeInput(attrs={'type':'time'}), label="Hora da reserva")
-    # observacoes = forms.CharField(widget=forms.Textarea, label='Observação', max_length=500)
