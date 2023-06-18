@@ -9,9 +9,10 @@ def reservas(request):
 
   # Obter o valor do parâmetro dateFilter da solicitação GET
   dateFilter = request.GET.get('dateFilter')
+  closed = request.GET.get('finalizadas')
 
   if usuario_admin:
-    reservas = Reserva.objects.filter(isFinalizado=False).order_by('data','horario')
+    reservas = Reserva.objects.all().order_by('data','horario')
   else:
     reservas = Reserva.objects.filter(user=request.user, isFinalizado=False).order_by('data','horario')
 
@@ -19,7 +20,11 @@ def reservas(request):
       #Converter o dateFilter em objeto datetime
       filteredDate = datetime.strptime(dateFilter, '%Y-%m-%d').date()
       #Filtrar as reservas pela data
-      reservas = reservas.filter(data=filteredDate)
+      reservas = reservas.filter(data=filteredDate)  
+
+  if not closed:
+    reservas = reservas.filter(isFinalizado=False)
+
 
   return render(request, 'reservas.html', {'reservas': reservas, 'usuario_admin': usuario_admin})
 

@@ -8,52 +8,24 @@ class ContatoForm(forms.ModelForm):
         model = Contato
         fields = ['nome', 'email', 'mensagem']
 
-class ReservaForm(forms.ModelForm):
-    # data = forms.DateField(
-    #     widget=forms.DateInput(
-    #         attrs={'type': 'date', 
-    #             'class': 'form-control', 
-    #             'style': 'width: 20%',
-    #             'format':'dd/mm/yyyy'},
-    #         format='%d/%m/%Y'
-    #     ),
-    #     input_formats=['%d/%m/%Y']
-    # )
 
-    # data = forms.DateField(
-    #     widget=forms.DateInput(
-    #         attrs={'type': 'date', 
-    #                'class': 'form-control', 
-    #                'style': 'width: 20%;',
-    #                'format': 'dd/mm/yyyy'},
-    #         format='%d/%m/%Y'
-    #     ),
-    #     input_formats=['%d/%m/%Y']
-    # )
+class ReservaForm(forms.ModelForm):
 
     class Meta:
         model = Reserva
-        fields = ['nome', 'telefone', 'data', 'horario', 'categoria', 'observacao']
+        fields = ['nome', 'email', 'telefone', 'nome_pet', 'data', 'horario', 'categoria', 'tamanho', 'observacao']
         labels = {
-            'nome': 'Nome do Pet',
+            'nome_pet': 'Nome do Pet',
             'data': 'Data da reserva',
-            'horario': 'Hora da reserva', 
+            'horario': 'Hora da reserva',
             'observacao': 'Observações'
         }
         widgets = {
-            'data': forms.DateInput(attrs={'type': 'form-control', 'class': 'datepicker', 'placeholder':'dd/mm/yyyy','style': 'width: 15%'}),
+            'data': forms.DateInput(attrs={'type': 'date', 'class': 'datepicker', 'placeholder':'dd/mm/yyyy','style': 'width: 15%'}),
             'horario': forms.Select(attrs={'class': 'form-control', 'style': 'width: 20%'}),
-            'categoria': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 20%; required: true'})
+            'categoria': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 20%; required: true'}),
+            'tamanho': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 20%; required: true'})
         }
-
-    # def __init__(self, *args, **kwargs):
-    #     super(ReservaForm, self).__init__(*args, **kwargs)
-    #     for field in self.fields.items():
-    #         # Adiciona a classe CSS para todos os campos
-    #         field.widget.attrs['class'] = 'form-control' 
-    #         # Remove o sufixo padrão ':' dos rótulos
-    #         field.label_suffix = ''
-
     def clean(self):
         cleaned_data = super().clean()
         # suas validações e manipulações aqui
@@ -74,6 +46,14 @@ class ReservaForm(forms.ModelForm):
         
         return data
     
+    #def clean_telefone(self):
+    #    telefone = self.cleaned_data.get('telefone')
+    #     print(telefone)
+    #    if len(telefone) < 9:
+    #        self.add_error('telefone', 'O telefone informado é inválido.')
+    #         if not telefone.isdigit():
+    #             self.add_error('telefone', 'Este campo só aceita números.')
+
     def clean_horario(self):
         horario = self.cleaned_data.get('horario')
         reserva_id = self.instance.id
@@ -86,10 +66,3 @@ class ReservaForm(forms.ModelForm):
             self.add_error('horario', 'Este horário já está reservado.')
 
         return horario
-    
-# class ReservaForm(forms.Form):
-    # nome = forms.CharField(label='Nome', max_length=100)
-    # telefone = forms.CharField(label='Telefone', max_length=100)
-    # data = forms.DateField(widget=forms.widgets.DateInput(attrs={'type':'date'}), label="Data da reserva")
-    # horario = forms.TimeField(widget=forms.widgets.TimeInput(attrs={'type':'time'}), label="Hora da reserva")
-    # observacoes = forms.CharField(widget=forms.Textarea, label='Observação', max_length=500)

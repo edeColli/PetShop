@@ -41,9 +41,6 @@
     {%if sucesso %}
       <p class="alert alert-success">Reserva efeutada com sucesso</p>
       <script>
-        // Atualizar lista de horários ocupados
-        var horariosOcupados = {{ horarios_ocupados|safe }};
-
         // Percorrer os elementos da lista de horários ocupados e pintar o horário reservado
         var cells = document.getElementsByClassName('cell');
         for (var i = 0; i < cells.length; i++) {
@@ -57,8 +54,8 @@
       </script>
     {% else %}
     <form action="" method="POST">
-      {% csrf_token %} 
-      {% load bootstrap5 %} 
+      {% csrf_token %}
+      {% load bootstrap5 %}
       {% bootstrap_form formulario %}
       <br>
       <button typpe="submit" class="btn btn-primary">Efetuar Reserva</button>
