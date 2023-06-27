@@ -5,11 +5,16 @@ from rest_framework.viewsets import ModelViewSet
 from core.models import Reserva
 from rest_api.serializers import AgendamentoModelSerializer
 from datetime import date
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 # Create your views here.
 
 class AgendamentoModelViewSet(ModelViewSet):
     queryset = Reserva.objects.all()
     serializer_class = AgendamentoModelSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class AgendamentoModelViewSetFinalizados(ModelViewSet):
     queryset = Reserva.objects.all().filter(isFinalizado=True)

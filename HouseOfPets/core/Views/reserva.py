@@ -2,7 +2,9 @@ from datetime import date
 from django.shortcuts import render
 from ..models import Reserva
 from core.forms import ReservaForm
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def reserva(request):
     sucesso = False
     data_atual = date.today()
