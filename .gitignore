@@ -31,7 +31,8 @@
 *.tds
 *.sqlite3
 *.exe
-
+*.pyc
+db.sqlite3
 
 *.cfg
 *.hpp
