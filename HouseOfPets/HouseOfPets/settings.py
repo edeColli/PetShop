@@ -36,12 +36,13 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "core",
+    "django.contrib.staticfiles",    
     "bootstrap5",
     "rest_framework",
-    "rest_api",
     "rest_framework.authtoken",
+    'django_filters',
+    "core",
+    "rest_api",    
 ]
 
 MIDDLEWARE = [
@@ -134,5 +135,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {    
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 20
+    'PAGE_SIZE': 20,
+    'DATE_INPUT_FORMATS': ["%d/%m/%Y"],
+    'DATE_FORMAT': '%Y-%m-%d',
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
 }

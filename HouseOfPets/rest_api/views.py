@@ -9,32 +9,34 @@ from rest_api.serializers import PetshopModelSerializer
 from datetime import date
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from django_filters.filterset import FilterSet
 
 # Create your views here.
+
+class ReservaFilterSet(FilterSet):
+    class Meta:
+        model = Reserva
+        fields = {
+            'data': ['gte'],
+            'email': ['icontains'],
+            'nome': ['icontains'],
+            'nome_pet': ['icontains'],
+            'isFinalizado': ['exact'],
+            'categoria': ['exact'],            
+        }
 class PetshopModelViewSet(ModelViewSet):
-    queryset = Petshop.objects.all()
     serializer_class = PetshopModelSerializer
+    queryset = Petshop.objects.all()
     authentication_classes = [TokenAuthentication]    
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 class AgendamentoModelViewSet(ModelViewSet):
+    serializer_class = AgendamentoModelSerializer
     queryset = Reserva.objects.all()
-    serializer_class = AgendamentoModelSerializer
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-
-class AgendamentoModelViewSetFinalizados(ModelViewSet):
-    queryset = Reserva.objects.all().filter(isFinalizado=True)
-    serializer_class = AgendamentoModelSerializer
-
-class AgendamentoModelViewSetAtivos(ModelViewSet):
-    queryset = Reserva.objects.all().filter(isFinalizado=False)
-    serializer_class = AgendamentoModelSerializer
-
-class AgendamentoModelViewSetDoDia(ModelViewSet):
-    dataAtual = date.today()
-    queryset = Reserva.objects.all().filter(data=dataAtual)
-    serializer_class = AgendamentoModelSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    #filterset_fields = ['data', 'isFinalizado', 'categoria']
+    filterset_class = ReservaFilterSet
 
 @api_view(['GET','POST'])
 def hello_world(request):

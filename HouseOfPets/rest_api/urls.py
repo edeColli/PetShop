@@ -1,5 +1,5 @@
 from django.urls import path
-from rest_api.views import hello_world, AgendamentoModelViewSet, AgendamentoModelViewSetFinalizados, AgendamentoModelViewSetAtivos, AgendamentoModelViewSetDoDia, PetshopModelViewSet
+from rest_api.views import hello_world, AgendamentoModelViewSet, PetshopModelViewSet
 from rest_framework.routers import SimpleRouter
 
 app_name = 'rest_api'
@@ -13,9 +13,6 @@ urlpatterns = [
 #por padrao o SimpleRouter() sempre adicionar uma / no final da rota, para que isso não acontece tem que adicionar o parametro trailing_slash
 router = SimpleRouter(trailing_slash=False)
 router.register('agendamento', AgendamentoModelViewSet)
-router.register('agendamentosFinalizados', AgendamentoModelViewSetFinalizados)
-router.register('agendamentosAtivos', AgendamentoModelViewSetAtivos)
-router.register('agendamentosDoDia', AgendamentoModelViewSetDoDia)
 router.register('petshop', PetshopModelViewSet)
 
 urlpatterns += router.urls
