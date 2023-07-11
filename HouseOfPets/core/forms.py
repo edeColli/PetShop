@@ -17,10 +17,9 @@ class ReservaForm(forms.ModelForm):
 
     class Meta:
         model = Reserva
-        fields = ['nome', 'email', 'telefone', 'nome_pet', 'data', 'horario', 'categoria_pet', 'tamanho', 'observacao']
+        fields = ['nome', 'email', 'telefone', 'nome_pet', 'data', 'horario', 'categoria', 'tamanho', 'observacao']
         labels = {
             'nome_pet': 'Nome do Pet',
-            'categoria_pet': 'Categoria',
             'data': 'Data da reserva',
             'horario': 'Hora da reserva',
             'observacao': 'Observações'
@@ -28,7 +27,7 @@ class ReservaForm(forms.ModelForm):
         widgets = {
             'data': forms.DateInput(attrs={'type': 'date', 'class': 'datepicker', 'placeholder':'dd/mm/yyyy','style': 'width: 15%'}),
             'horario': forms.Select(attrs={'class': 'form-control', 'style': 'width: 20%'}),
-            'categoria_pet': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 20%; required: true'}),
+            'categoria': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 20%; required: true'}),
             'tamanho': forms.Select(attrs={'class': 'form-control', 'style': 'display: block; width: 20%; required: true'})
         }
     def clean(self):
