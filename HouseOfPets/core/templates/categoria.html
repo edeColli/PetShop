@@ -1,0 +1,16 @@
+{% extends 'inicio.html' %} {% block principal %}
+<div class="text-center mt-5 pt-5">
+  <h1>Cadastro de categorias</h1>
+  <p>Informe um nome para criar uma categoria</p>
+
+  {%if sucesso %}
+  <p class="alert alert-success">Categoria criada com sucesso</p>
+  {% else %}
+  <form action="" method="POST">
+    {% csrf_token %} {% load bootstrap5 %} {% bootstrap_form formulario %}
+    <hr />
+    <button typpe="submit" class="btn btn-primary">Salvar</button>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}

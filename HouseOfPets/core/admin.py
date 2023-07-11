@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Reserva
 from .models import Contato
+from .models import Categoria
 from django.contrib import messages
 
 @admin.action(description='Marcar Reserva como finalizada')
@@ -27,3 +28,10 @@ class ContatoAdmin(admin.ModelAdmin):
     search_fields = ['nome', 'email']
     list_filter = ['data', 'lido']
     actions = [marcar_como_lido]
+
+
+@admin.register(Categoria)
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ['descricao']
+    search_fields = ['descricao']
+    list_filter = ['descricao']
