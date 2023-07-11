@@ -21,6 +21,7 @@ from core.Views.reserva import reserva
 from core.Views.signup import signup
 from core.Views.signin import signin
 from core.Views.reservas import reservas
+from core.Views.categoria import categoria
 from core.Views.reserva_detalhe import reserva_detalhe, finalizar_reserva, excluir_reserva
 from core import views
 
@@ -31,6 +32,7 @@ urlpatterns = [
     path("sair/", views.sair),
     path("admin/", admin.site.urls),
     path("contato/", contato, name='contato'),
+    path("categoria/", categoria, name='categoria'),
     path("reserva/", reserva, name='reserva'),
     path("signup/", signup, name='signup'),
     path("signin/", signin, name='signin'),

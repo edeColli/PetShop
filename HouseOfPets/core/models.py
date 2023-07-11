@@ -48,6 +48,7 @@ class Reserva(models.Model):
     data = models.DateField(verbose_name='Data Reserva')
     horario = models.CharField(max_length=5, verbose_name="Horário", choices=HORARIO_LIST)
     categoria = models.CharField(max_length=30, verbose_name="Categoria", choices=CATEGORIA_LIST)
+    categoria_pet = models.ForeignKey('Categoria', related_name='agendamentos', on_delete=models.CASCADE, blank=True, null=True)
     tamanho = models.IntegerField(verbose_name='Tamanho', choices=TAMANHO_LIST)
     observacao = models.TextField(verbose_name='Observação', blank=True)
     isFinalizado = models.BooleanField(verbose_name='Serviço Finalizado', default=False)
@@ -74,3 +75,7 @@ class Petshop(models.Model):
     rua = models.CharField(verbose_name='Rua', max_length=100)
     numero = models.CharField(verbose_name='Número', max_length=10)
     bairro = models.CharField(verbose_name='Bairro', max_length=50)
+
+
+class Categoria(models.Model):
+    descricao = models.CharField(verbose_name='Nome da categoria', max_length=50)
