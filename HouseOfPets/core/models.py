@@ -17,10 +17,6 @@ class Contato(models.Model):
         ordering = ['-data']
 
 class Reserva(models.Model):
-    CATEGORIA_LIST = (
-        ("Gato", "Gato"), 
-        ("Cachorro", "Cachorro")
-    )
 
     TAMANHO_LIST = (
         (0, 'Pequeno'),
@@ -46,13 +42,18 @@ class Reserva(models.Model):
     nome_pet = models.CharField(verbose_name='Nome do pet',max_length=50)
     telefone = models.CharField(verbose_name='Telefone', max_length=20)
     data = models.DateField(verbose_name='Data Reserva')
-    horario = models.CharField(max_length=5, verbose_name="Horário", choices=HORARIO_LIST)
-    categoria = models.CharField(max_length=30, verbose_name="Categoria", choices=CATEGORIA_LIST)
-    categoria_pet = models.ForeignKey('Categoria', related_name='agendamentos', on_delete=models.CASCADE, blank=True, null=True)
+    horario = models.CharField(max_length=5, verbose_name="Horário", choices=HORARIO_LIST)    
     tamanho = models.IntegerField(verbose_name='Tamanho', choices=TAMANHO_LIST)
     observacao = models.TextField(verbose_name='Observação', blank=True)
     isFinalizado = models.BooleanField(verbose_name='Serviço Finalizado', default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    categoria = models.ForeignKey(
+        'Categoria', 
+        related_name='agendamentos', 
+        on_delete=models.CASCADE, 
+        blank=True, 
+        null=True
+    )
     petshop = models.ForeignKey(
         'Petshop', 
         related_name='reservas',
@@ -76,6 +77,11 @@ class Petshop(models.Model):
     numero = models.CharField(verbose_name='Número', max_length=10)
     bairro = models.CharField(verbose_name='Bairro', max_length=50)
 
+    def __str__(self):
+        return self.nome
 
 class Categoria(models.Model):
     descricao = models.CharField(verbose_name='Nome da categoria', max_length=50)
+
+    def __str__(self):
+        return self.descricao
