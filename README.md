@@ -15,4 +15,5 @@ Sistema desenvolvido para fins acadêmicos relacionado a reservas de banho em um
 * Pip Install Django
 * pip install django-bootstrap-v5
 * pip install djangorestframework
+* pip install django-filter
 * django ./manage.py runserver
