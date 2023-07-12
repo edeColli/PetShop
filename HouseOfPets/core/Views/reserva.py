@@ -20,8 +20,7 @@ def reserva(request):
         reserva = form.save(commit=False)
         reserva.user = request.user
         reserva.save()
-        sucesso = True
-
+        sucesso = True  
         reservas = Reserva.objects.filter(isFinalizado=False, data=data_atual).order_by('data', 'horario')
         horarios_ocupados = [reserva.horario for reserva in reservas]
       else:
