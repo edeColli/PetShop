@@ -51,29 +51,26 @@ class CategoriaModelViewSet(ModelViewSet):
         return Response(data=serializer.data)
     
 class AgendamentoModelViewSet(ModelViewSet):
-    serializer_class = AgendamentoModelSerializer    
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    filterset_class = ReservaFilterSet
+    serializer_class = AgendamentoModelSerializer
+    queryset = Reserva.objects.all()
+    filterset_class = ReservaFilterSet    
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
     
-    def get_queryset(self):
-        if self.request.method in SAFE_METHODS:            
-            return Reserva.objects.all()        
-        return Reserva.objects.filter(isFinalizado=False)
+    # def get_queryset(self):
+    #     if self.request.method in SAFE_METHODS:            
+    #         return Reserva.objects.all()        
+    #     return Reserva.objects.filter(isFinalizado=False)
     
-    def perform_create(self, serializer):
-        if self.request.user.is_authenticated:
-            serializer.save(user_id=self.request.user.id)
-        else:
-            serializer.save()
+    # def perform_create(self, serializer):
+    #     if self.request.user.is_authenticated:
+    #         serializer.save(user_id=self.request.user.id)
+    #     else:
+    #         serializer.save()
 
     def get_permissions(self):
-    #     print('get_permis')
         if self.action == 'create':
-    #         print('action-create')
             return[AllowAny()]
-    #     print(self.request.user)
-    #     print(self.request.user.is_staff)
         return [IsAdminUser()]
 
 class PetshopModelViewSet(ModelViewSet):
