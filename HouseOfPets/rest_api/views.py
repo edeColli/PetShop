@@ -37,9 +37,9 @@ class CategoriaFilterSet(FilterSet):
             'descricao': ['icontains']
         }
 
-class CategoriaModelViewSet(ModelViewSet):    
-    serializer_class = CategoriaModelSerializer
+class CategoriaModelViewSet(ModelViewSet):        
     queryset = Categoria.objects.all()
+    serializer_class = CategoriaModelSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]    
     filterset_class = CategoriaFilterSet
 
@@ -50,12 +50,12 @@ class CategoriaModelViewSet(ModelViewSet):
         serializer = AgendamentoModelSerializer(instance=agendamentos, many=True)
         return Response(data=serializer.data)
     
-class AgendamentoModelViewSet(ModelViewSet):
-    serializer_class = AgendamentoModelSerializer
+class AgendamentoModelViewSet(ModelViewSet):    
     queryset = Reserva.objects.all()
-    filterset_class = ReservaFilterSet    
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticatedOrReadOnly]
+    serializer_class = AgendamentoModelSerializer
+    # filterset_class = ReservaFilterSet    
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     
     # def get_queryset(self):
     #     if self.request.method in SAFE_METHODS:            
@@ -68,14 +68,14 @@ class AgendamentoModelViewSet(ModelViewSet):
     #     else:
     #         serializer.save()
 
-    def get_permissions(self):
-        if self.action == 'create':
-            return[AllowAny()]
-        return [IsAdminUser()]
+    # def get_permissions(self):
+    #     if self.action == 'create':
+    #         return[AllowAny()]
+    #     return [IsAdminUser()]
 
-class PetshopModelViewSet(ModelViewSet):
-    serializer_class = PetshopModelSerializer
+class PetshopModelViewSet(ModelViewSet):    
     queryset = Petshop.objects.all()
+    serializer_class = PetshopModelSerializer
     authentication_classes = [TokenAuthentication]    
     permission_classes = [IsAuthenticatedOrReadOnly]
 

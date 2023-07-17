@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from core.forms import CategoriaForm
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def categoria(request):
     sucesso = False
 
