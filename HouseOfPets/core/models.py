@@ -63,7 +63,7 @@ class Reserva(models.Model):
     )
 
     def __str__(self):
-        return f'{self.nome} [{self.data}] [{self.categoria}]'
+        return f'{self.nome} [{self.data}] [{self.horario}]'
 
     class Meta:
         verbose_name = 'Reserva de banho'
@@ -79,6 +79,9 @@ class Petshop(models.Model):
 
     def __str__(self):
         return self.nome
+    
+    def quantidade_reservas(self):
+        return self.reservas.count()
 
 class Categoria(models.Model):
     descricao = models.CharField(verbose_name='Nome da categoria', max_length=50)

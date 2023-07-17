@@ -25,7 +25,6 @@ from core.Views.categoria import categoria
 from core.Views.reserva_detalhe import reserva_detalhe, finalizar_reserva, excluir_reserva
 from core import views
 
-
 urlpatterns = [
     path("", views.inicio, name='unicio'),
     path("about/", views.sobre, name='sobre'),

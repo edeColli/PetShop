@@ -17,18 +17,18 @@ class CategoriaModelSerializer(ModelSerializer):
         ]
 
 class PetshopModelSerializer(ModelSerializer):
-    # reservas = HyperlinkedRelatedField(
-    #     many=True,
-    #     read_only=True,
-    #     view_name='api:reserva-detail'
-    # )
+    reservas = HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='api:reserva-detail'
+    )
     class Meta:
         model = Petshop
         fields = '__all__'
 
 class AgendamentoModelSerializer(ModelSerializer):
     petshop = PetshopModelSerializer(read_only=True)
-    categoria = CategoriaModelSerializer(read_only=True)
+    # categoria = CategoriaModelSerializer(read_only=True)
 
     def validate_data(self, value):
         hoje = date.today()
