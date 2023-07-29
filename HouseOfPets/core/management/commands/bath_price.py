@@ -44,7 +44,7 @@ class Command(BaseCommand):
             '-petshop',
             required=True,
             type=int,
-            choices=self.getPetshops,
+            choices=self.getPetshops(),
             help='Código de identificação do Petshop'
         )
 
