@@ -30,7 +30,10 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
-# CSRF_TRUSTED_ORIGINS = ['HouseOfPets.core.railway.app']
+# Depois que tiver feito o deply pegar o dominio que ele fornece e colocar nessa variavel
+CSRF_TRUSTED_ORIGINS = [
+    'https://petshop-production-3e1b.up.railway.app'
+]
 
 # Application definition
 
